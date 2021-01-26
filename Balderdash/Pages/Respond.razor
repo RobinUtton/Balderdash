@@ -1,0 +1,13 @@
+﻿@page "/Respond"
+
+<h1>Answer the Question!</h1>
+
+<h3>@QuestionText</h3>
+
+<EditForm Model="@Answer" OnValidSubmit="@SubmitAnswer">
+    <div class="form-group">
+        <label>Answer</label>
+        <InputTextArea class="form-control h-50" @bind-Value="@Answer.Content" placeholder="Type an answer" style="height:50vh!important" />
+    </div>
+    <button type="submit" class="btn btn-primary edit-btn">Submit</button>
+</EditForm>

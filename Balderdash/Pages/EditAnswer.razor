@@ -1,0 +1,16 @@
+﻿@page "/EditAnswer/{Id}"
+
+<h3>@Answer.Player.Name's answer:</h3>
+
+<EditForm Model="Answer">
+    <div class="form-group">
+        <label>Answer</label>
+        <InputTextArea class="form-control" @bind-Value="Answer.Content" placeholder="Type an answer" style="height:50vh!important" />
+    </div>
+    <button class="btn btn-primary" @onclick="UpdateAnswer">Submit</button>
+    <button class="btn btn-secondary" @onclick="RevertAnswer">Revert</button>
+    @if (!Answer.IsCorrect)
+    {
+        <button class="btn btn-success edit-btn" @onclick="MarkCorrect">Mark correct</button>
+    }
+</EditForm>

@@ -1,0 +1,28 @@
+﻿@page "/Results"
+
+<h1>Choose an Answer!</h1>
+
+<h3>@QuestionService.QuestionText</h3>
+
+<table class="table">
+    <tbody>
+        @foreach (Answer option in QuestionService.Options)
+        {
+            if (HighlightOwnAnswer && option.Player == PlayerService.Player)
+            {
+                <tr style="background-color:lightgreen">
+                    <td>@option.Content</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>@option.Content</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" @onclick="ReturnToStart">Done</button>
+<button class="btn btn-secondary" @onclick="ToggleHighlight">@HighlightText my answer</button>

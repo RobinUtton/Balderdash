@@ -1,0 +1,11 @@
+﻿@page "/Ask"
+
+<h1>Ask the Question!</h1>
+
+<EditForm Model="@Question" OnValidSubmit="@SetQuestion">
+    <div class="form-group">
+        <label>Question</label>
+        <InputText class="form-control" @bind-Value="Question.QuestionText" placeholder="Enter a question" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>

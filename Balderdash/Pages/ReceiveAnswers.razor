@@ -1,0 +1,27 @@
+﻿@page "/ReceiveAnswers"
+
+<h1>Review the Answers!</h1>
+
+<h3>@QuestionService.QuestionText</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Player</th>
+            <th>Answer</th>
+            <th />
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ((Answer answer, int id) in QuestionService.Answers.Select((a, i) => (a, i)))
+        {
+            <tr>
+                <td>@answer.Player.Name</td>
+                <td>@answer.Content</td>
+                <td><button class="btn btn-primary edit-btn" @onclick="() => Edit(id)">Edit</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary edit-btn" @onclick="Continue">Continue</button>

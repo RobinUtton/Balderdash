@@ -1,0 +1,11 @@
+﻿@page "/"
+
+<h1>Welcome to Balderdash!</h1>
+
+<EditForm Model="@Player" OnValidSubmit="@Join">
+    <div class="form-group">
+        <label>Name</label>
+        <InputText class="form-control" @bind-Value="Player.Name" placeholder="Enter a name" />
+    </div>
+    <button type="submit" class="btn btn-primary">Join</button>
+</EditForm>
