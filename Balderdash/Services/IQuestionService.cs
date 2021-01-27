@@ -11,11 +11,6 @@ namespace Balderdash.Services
     public interface IQuestionService
     {
         /// <summary>
-        /// Gets the player asking the current question.
-        /// </summary>
-        Player? Dasher { get; }
-
-        /// <summary>
         /// Gets the name of the current dasher.
         /// </summary>
         string DasherName { get; }
@@ -45,6 +40,13 @@ namespace Balderdash.Services
         /// Gets a value indicating whether the dasher has reviewed the answers.
         /// </summary>
         bool IsQuestionComplete { get; }
+
+        /// <summary>
+        /// Determines if the given player is the dasher.
+        /// </summary>
+        /// <param name="player">The player to check.</param>
+        /// <returns>True if the player is the dasher, otherwise false.</returns>
+        bool IsPlayerDasher(Player player);
 
         /// <summary>
         /// Nominates a player as the dasher.
@@ -103,8 +105,6 @@ namespace Balderdash.Services
 
         private class NullQuestionService : IQuestionService
         {
-            public Player? Dasher => null;
-
             public string DasherName => string.Empty;
             public string QuestionText => string.Empty;
             public string CorrectAnswer => string.Empty;
@@ -115,6 +115,8 @@ namespace Balderdash.Services
             public bool IsDasherSet => false;
             public bool IsQuestionSet => false;
             public bool IsQuestionComplete => false;
+
+            public bool IsPlayerDasher(Player player) => false;
 
             public void SetDasher(Player player) { DasherSet?.Invoke(); }
             public void SetQuestion(Question question) { QuestionSet?.Invoke(); }

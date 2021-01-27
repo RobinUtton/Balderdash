@@ -17,7 +17,7 @@ namespace Balderdash.Pages
         protected override void OnInitialized()
         {
             Answer.Player = PlayerService.Player;
-            Answer.IsCorrect = PlayerService.Player == QuestionService.Dasher;
+            Answer.IsCorrect =  QuestionService.IsPlayerDasher(Answer.Player);
         }
 
         private void SubmitAnswer()

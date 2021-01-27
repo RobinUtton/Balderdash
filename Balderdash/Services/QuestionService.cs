@@ -10,17 +10,17 @@ namespace Balderdash.Services
     {
         private readonly List<Answer> _answers = new List<Answer>();
 
-        public Player? Dasher { get; private set; }
-        public Question? Question { get; private set; }
+        private Player? _dasher;
+        private Question? _question;
 
         public IEnumerable<Answer> Answers => _answers;
         public IEnumerable<Answer> Options { get; private set; } = Enumerable.Empty<Answer>();
 
-        public string DasherName => Dasher?.Name ?? "The dasher";
-        public string QuestionText => Question?.QuestionText ?? "ERROR: Question not set.";
+        public string DasherName => _dasher?.Name ?? "The dasher";
+        public string QuestionText => _question?.QuestionText ?? "ERROR: Question not set.";
 
-        public bool IsDasherSet => !(Dasher is null);
-        public bool IsQuestionSet => !(Question is null);
+        public bool IsDasherSet => !(_dasher is null);
+        public bool IsQuestionSet => !(_question is null);
         public bool IsQuestionComplete => Options.Any();
 
         public event Action? DasherSet;
@@ -29,16 +29,18 @@ namespace Balderdash.Services
         public event Action? AnswersConfirmed;
         public event Action? RoundEnded;
 
+        public bool IsPlayerDasher(Player player) => player == _dasher;
+
         public void SetDasher(Player player)
         {
-            Dasher = player;
+            _dasher = player;
 
             DasherSet?.Invoke();
         }
 
         public void SetQuestion(Question question)
         {
-            Question = question;
+            _question = question;
 
             QuestionSet?.Invoke();
         }
@@ -66,8 +68,8 @@ namespace Balderdash.Services
 
         public void EndRound()
         {
-            Dasher = null;
-            Question = null;
+            _dasher = null;
+            _question = null;
             _answers.Clear();
             Options = Enumerable.Empty<Answer>();
 

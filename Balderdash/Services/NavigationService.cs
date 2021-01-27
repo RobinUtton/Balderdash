@@ -57,7 +57,7 @@ namespace Balderdash.Services
         {
             if (!_questionService.IsQuestionComplete)
             {
-                if (_playerService.Player == _questionService.Dasher)
+                if (_questionService.IsPlayerDasher(_playerService.Player))
                 {
                     NavigateTo("/ReceiveAnswers");
                 }
@@ -115,7 +115,7 @@ namespace Balderdash.Services
 
         private void OnQuestionSet()
         {
-            if (_playerService.Player != _questionService.Dasher)
+            if (!_questionService.IsPlayerDasher(_playerService.Player))
             {
                 NavigateTo("/Respond");
             }
