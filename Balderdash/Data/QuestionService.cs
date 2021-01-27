@@ -24,15 +24,12 @@ namespace Balderdash.Data
         public event Action? DasherSet;
         public event Action? QuestionSet;
         public event Action? AnswerReceived;
-        public event Action? QuestionComplete;
+        public event Action? AnswersConfirmed;
+        public event Action? RoundEnded;
 
         public void SetDasher(Player player)
         {
             Dasher = player;
-
-            Question = null;
-            _answers.Clear();
-            Options = Enumerable.Empty<Answer>();
 
             DasherSet?.Invoke();
         }
@@ -40,9 +37,6 @@ namespace Balderdash.Data
         public void SetQuestion(Question question)
         {
             Question = question;
-
-            _answers.Clear();
-            Options = Enumerable.Empty<Answer>();
 
             QuestionSet?.Invoke();
         }
@@ -59,15 +53,23 @@ namespace Balderdash.Data
             _answers.Remove(answer);
         }
 
-        public void CompleteQuestion()
+        public void ConfirmAnswers()
         {
             Options = Answers
                 .Shuffle()
                 .ToList();
 
-            Dasher = null;
+            AnswersConfirmed?.Invoke();
+        }
 
-            QuestionComplete?.Invoke();
+        public void EndRound()
+        {
+            Dasher = null;
+            Question = null;
+            _answers.Clear();
+            Options = Enumerable.Empty<Answer>();
+
+            RoundEnded?.Invoke();
         }
     }
 }

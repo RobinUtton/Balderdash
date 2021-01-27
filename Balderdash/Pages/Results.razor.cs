@@ -6,7 +6,6 @@ namespace Balderdash.Pages
     public partial class Results
     {
         [Inject] private IQuestionService QuestionService { get; set; } = IQuestionService.Null;
-        [Inject] private INavigationService NavigationService { get; set; } = INavigationService.Null;
         [Inject] private IPlayerService PlayerService { get; set; } = IPlayerService.Null;
 
         private bool HighlightOwnAnswer { get; set; } = false;
@@ -14,7 +13,7 @@ namespace Balderdash.Pages
 
         private void ReturnToStart()
         {
-            NavigationService.NewRound();
+            QuestionService.EndRound();
         }
 
         private void ToggleHighlight()

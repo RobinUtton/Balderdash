@@ -93,7 +93,8 @@ namespace Balderdash.Data
         {
             _questionService.DasherSet += OnDasherSet;
             _questionService.QuestionSet += OnQuestionSet;
-            _questionService.QuestionComplete += OnQuestionCompleted;
+            _questionService.AnswersConfirmed += OnQuestionCompleted;
+            _questionService.RoundEnded += OnRoundEnded;
         }
 
         /// <summary>
@@ -103,7 +104,8 @@ namespace Balderdash.Data
         {
             _questionService.DasherSet -= OnDasherSet;
             _questionService.QuestionSet -= OnQuestionSet;
-            _questionService.QuestionComplete -= OnQuestionCompleted;
+            _questionService.AnswersConfirmed -= OnQuestionCompleted;
+            _questionService.RoundEnded -= OnRoundEnded;
         }
 
         private void OnDasherSet()
@@ -122,6 +124,11 @@ namespace Balderdash.Data
         private void OnQuestionCompleted()
         {
             NavigateTo("/Results");
+        }
+
+        private void OnRoundEnded()
+        {
+            NewRound();
         }
 
         void IDisposable.Dispose()

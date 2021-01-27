@@ -68,7 +68,11 @@ namespace Balderdash.Data
         /// <summary>
         /// Confirms the submitted answers after review by the dasher.
         /// </summary>
-        void CompleteQuestion();
+        void ConfirmAnswers();
+        /// <summary>
+        /// Ends the round and prepares to begin the next.
+        /// </summary>
+        void EndRound();
 
         /// <summary>
         /// Occurs when the dasher has been set.
@@ -85,7 +89,11 @@ namespace Balderdash.Data
         /// <summary>
         /// Occurs when the dasher has reviewed and accepted the answers.
         /// </summary>
-        event Action? QuestionComplete;
+        event Action? AnswersConfirmed;
+        /// <summary>
+        /// Occurs when the round has been ended.
+        /// </summary>
+        event Action? RoundEnded;
 
         /// <summary>
         /// Gets a fallback implementation of question service interface.
@@ -111,12 +119,14 @@ namespace Balderdash.Data
             public void SetQuestion(Question question) { QuestionSet?.Invoke(); }
             public void SubmitAnswer(Answer answer) { AnswerReceived?.Invoke(); }
             public void RemoveAnswer(Answer answer) { }
-            public void CompleteQuestion() { QuestionComplete?.Invoke(); }
+            public void ConfirmAnswers() { AnswersConfirmed?.Invoke(); }
+            public void EndRound() { RoundEnded?.Invoke(); }
 
             public event Action? DasherSet;
             public event Action? QuestionSet;
             public event Action? AnswerReceived;
-            public event Action? QuestionComplete;
+            public event Action? AnswersConfirmed;
+            public event Action? RoundEnded;
         }
     }
 }

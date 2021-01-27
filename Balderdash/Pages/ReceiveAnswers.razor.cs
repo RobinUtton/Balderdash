@@ -20,7 +20,7 @@ namespace Balderdash.Pages
 
         private void Continue()
         {
-            QuestionService.CompleteQuestion();
+            QuestionService.ConfirmAnswers();
         }
 
         private EventCallback Edit(int id)
