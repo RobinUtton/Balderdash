@@ -1,4 +1,4 @@
-﻿namespace Balderdash.Data
+﻿namespace Balderdash.Models
 {
     /// <summary>
     /// Represents a question asked by the dasher.

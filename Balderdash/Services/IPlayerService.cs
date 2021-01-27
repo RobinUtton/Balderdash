@@ -1,4 +1,6 @@
-﻿namespace Balderdash.Data
+﻿using Balderdash.Models;
+
+namespace Balderdash.Services
 {
     /// <summary>
     /// Represents a service providing access to information about the player in the current session.

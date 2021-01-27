@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Balderdash.Extensions;
+using Balderdash.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Balderdash.Data
+namespace Balderdash.Services
 {
     public class QuestionService : IQuestionService
     {

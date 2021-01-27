@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Balderdash.Data
+namespace Balderdash.Extensions
 {
     /// <summary>
     /// Provides static methods for manipulating collections.

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Balderdash.Data
+namespace Balderdash.Models
 {
     /// <summary>
     /// Represents a player in the game.

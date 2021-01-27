@@ -1,4 +1,6 @@
-﻿namespace Balderdash.Data
+﻿using Balderdash.Models;
+
+namespace Balderdash.Services
 {
     public class PlayerService : IPlayerService
     {

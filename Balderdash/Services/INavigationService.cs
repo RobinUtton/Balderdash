@@ -1,4 +1,4 @@
-﻿namespace Balderdash.Data
+﻿namespace Balderdash.Services
 {
     /// <summary>
     /// Represents a service managing navigation between the pages of the site.

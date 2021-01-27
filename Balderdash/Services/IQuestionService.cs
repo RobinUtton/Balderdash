@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Balderdash.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Balderdash.Data
+namespace Balderdash.Services
 {
     /// <summary>
     /// Represents a service describing the state of the round being played.

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 
-namespace Balderdash.Data
+namespace Balderdash.Services
 {
     public class NavigationService : INavigationService, IDisposable
     {

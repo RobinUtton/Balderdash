@@ -1,4 +1,4 @@
-﻿namespace Balderdash.Data
+﻿namespace Balderdash.Models
 {
     /// <summary>
     /// Represents a player's answer to a question.
