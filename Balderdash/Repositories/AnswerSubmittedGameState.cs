@@ -15,5 +15,4 @@ namespace Balderdash.Repositories
             _answer = answer;
         }
     }
-
 }

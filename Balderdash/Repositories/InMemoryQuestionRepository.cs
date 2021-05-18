@@ -19,22 +19,36 @@ namespace Balderdash.Repositories
         public void SetDasher(string gameID, Player dasher)
         {
             UpdateGameState(gameID, gs => new DasherSetGameState(dasher, gs));
+
+            DasherSet?.Invoke(gameID);
         }
         public void SetQuestion(string gameID, Question question)
         {
             UpdateGameState(gameID, gs => new QuestionSetGameState(question, gs));
+
+            QuestionSet?.Invoke(gameID);
         }
         public void SubmitAnswer(string gameID, Answer answer)
         {
             UpdateGameState(gameID, gs => new AnswerSubmittedGameState(answer, gs));
+
+            AnswerReceived?.Invoke(gameID);
+        }
+        public void RemoveAnswer(string gameID, Answer answer)
+        {
+            UpdateGameState(gameID, gs => new AnswerRemovedGameState(answer, gs));
         }
         public void ConfirmAnswers(string gameID)
         {
             UpdateGameState(gameID, gs => new AnswersConfirmedGameState(gs));
+
+            AnswersConfirmed?.Invoke(gameID);
         }
         public void EndRound(string gameID)
         {
             DeleteGameState(gameID);
+
+            RoundEnded?.Invoke(gameID);
         }
 
         private IGameState GetGameState(string gameID) => _gameStates.ContainsKey(gameID) ? _gameStates[gameID] : new NewRoundGameState();
@@ -46,5 +60,11 @@ namespace Balderdash.Repositories
         {
             _gameStates.Remove(gameID);
         }
+
+        public event Action<string>? DasherSet;
+        public event Action<string>? QuestionSet;
+        public event Action<string>? AnswerReceived;
+        public event Action<string>? AnswersConfirmed;
+        public event Action<string>? RoundEnded;
     }
 }

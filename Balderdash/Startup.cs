@@ -1,3 +1,4 @@
+using Balderdash.Repositories;
 using Balderdash.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +23,8 @@ namespace Balderdash
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<IQuestionService, QuestionService>();
+            services.AddSingleton<IQuestionRepository, InMemoryQuestionRepository>();
+            services.AddScoped<IQuestionService, RepositoryQuestionService>();
             services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<INavigationService, NavigationService>();
         }

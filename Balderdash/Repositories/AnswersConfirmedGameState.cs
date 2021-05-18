@@ -1,6 +1,7 @@
 ﻿using Balderdash.Extensions;
 using Balderdash.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Balderdash.Repositories
 {
@@ -10,8 +11,7 @@ namespace Balderdash.Repositories
 
         public AnswersConfirmedGameState(IGameState previousState) : base(previousState)
         {
-            Answers = previousState.Answers.Shuffle();
+            Answers = previousState.Answers.Shuffle().ToList();
         }
     }
-
 }

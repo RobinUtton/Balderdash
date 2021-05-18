@@ -2,10 +2,14 @@
 
 <h1>Welcome to Balderdash!</h1>
 
-<EditForm Model="@Player" OnValidSubmit="@Join">
+<EditForm Model="@PlayerService" OnValidSubmit="@Join">
     <div class="form-group">
         <label>Name</label>
-        <InputText class="form-control" @bind-Value="Player.Name" placeholder="Enter a name" />
+        <InputText class="form-control" @bind-Value="PlayerService.Player.Name" placeholder="Enter a name" />
+    </div>
+    <div class="form-group">
+        <label>Game ID</label>
+        <InputText class="form-control" @bind-Value="PlayerService.GameId" placeholder="Enter a game ID" />
     </div>
     <button type="submit" class="btn btn-primary">Join</button>
 </EditForm>
