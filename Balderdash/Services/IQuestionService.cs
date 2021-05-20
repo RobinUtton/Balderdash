@@ -80,23 +80,23 @@ namespace Balderdash.Services
         /// <summary>
         /// Occurs when the dasher has been set.
         /// </summary>
-        event Action? DasherSet;
+        event EventHandler? DasherSet;
         /// <summary>
         /// Occurs when the question text has been set.
         /// </summary>
-        event Action? QuestionSet;
+        event EventHandler? QuestionSet;
         /// <summary>
         /// Occurs when an answer has been submitted by a player.
         /// </summary>
-        event Action? AnswerReceived;
+        event EventHandler? AnswerReceived;
         /// <summary>
         /// Occurs when the dasher has reviewed and accepted the answers.
         /// </summary>
-        event Action? AnswersConfirmed;
+        event EventHandler? AnswersConfirmed;
         /// <summary>
         /// Occurs when the round has been ended.
         /// </summary>
-        event Action? RoundEnded;
+        event EventHandler? RoundEnded;
 
         /// <summary>
         /// Gets a fallback implementation of question service interface.
@@ -107,7 +107,6 @@ namespace Balderdash.Services
         {
             public string DasherName => string.Empty;
             public string QuestionText => string.Empty;
-            public string CorrectAnswer => string.Empty;
 
             public IEnumerable<Answer> Answers => Enumerable.Empty<Answer>();
             public IEnumerable<Answer> Options => Enumerable.Empty<Answer>();
@@ -118,18 +117,18 @@ namespace Balderdash.Services
 
             public bool IsPlayerDasher(Player player) => false;
 
-            public void SetDasher(Player player) { DasherSet?.Invoke(); }
-            public void SetQuestion(Question question) { QuestionSet?.Invoke(); }
-            public void SubmitAnswer(Answer answer) { AnswerReceived?.Invoke(); }
+            public void SetDasher(Player player) { DasherSet?.Invoke(this, EventArgs.Empty); }
+            public void SetQuestion(Question question) { QuestionSet?.Invoke(this, EventArgs.Empty); }
+            public void SubmitAnswer(Answer answer) { AnswerReceived?.Invoke(this, EventArgs.Empty); }
             public void RemoveAnswer(Answer answer) { }
-            public void ConfirmAnswers() { AnswersConfirmed?.Invoke(); }
-            public void EndRound() { RoundEnded?.Invoke(); }
+            public void ConfirmAnswers() { AnswersConfirmed?.Invoke(this, EventArgs.Empty); }
+            public void EndRound() { RoundEnded?.Invoke(this, EventArgs.Empty); }
 
-            public event Action? DasherSet;
-            public event Action? QuestionSet;
-            public event Action? AnswerReceived;
-            public event Action? AnswersConfirmed;
-            public event Action? RoundEnded;
+            public event EventHandler? DasherSet;
+            public event EventHandler? QuestionSet;
+            public event EventHandler? AnswerReceived;
+            public event EventHandler? AnswersConfirmed;
+            public event EventHandler? RoundEnded;
         }
     }
 }

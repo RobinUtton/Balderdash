@@ -72,6 +72,18 @@ namespace Balderdash.Services
             }
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            UnregisterCallbacks();
+        }
+
         public void Edit(int id)
         {
             NavigateTo($"/EditAnswer/{id}");
@@ -108,12 +120,12 @@ namespace Balderdash.Services
             _questionService.RoundEnded -= OnRoundEnded;
         }
 
-        private void OnDasherSet()
+        private void OnDasherSet(object? sender, EventArgs e)
         {
             NavigateTo("/AwaitQuestion");
         }
 
-        private void OnQuestionSet()
+        private void OnQuestionSet(object? sender, EventArgs e)
         {
             if (!_questionService.IsPlayerDasher(_playerService.Player))
             {
@@ -121,19 +133,14 @@ namespace Balderdash.Services
             }
         }
 
-        private void OnQuestionCompleted()
+        private void OnQuestionCompleted(object? sender, EventArgs e)
         {
             NavigateTo("/Results");
         }
 
-        private void OnRoundEnded()
+        private void OnRoundEnded(object? sender, EventArgs e)
         {
             NewRound();
-        }
-
-        void IDisposable.Dispose()
-        {
-            UnregisterCallbacks();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Balderdash.Services;
 using Microsoft.AspNetCore.Components;
+using System;
 
 namespace Balderdash.Pages
 {
@@ -13,7 +14,7 @@ namespace Balderdash.Pages
             QuestionService.AnswerReceived += AnswerReceived;
         }
 
-        private void AnswerReceived()
+        private void AnswerReceived(object? sender, EventArgs e)
         {
             InvokeAsync(StateHasChanged);
         }

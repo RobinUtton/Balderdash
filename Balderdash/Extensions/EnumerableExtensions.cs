@@ -17,6 +17,7 @@ namespace Balderdash.Extensions
         /// <typeparam name="T">The type of the elements of source.</typeparam>
         /// <param name="source">The enumerable to shuffle.</param>
         /// <returns>A sequence that contains the elements of the input sequence in a random order.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "CA5394:Do not use insecure randomness", Justification = "Randomness is not used for secure reasons")]
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
             => source.Select(x => (x, rng.Next()))
             .OrderBy(t => t.Item2)

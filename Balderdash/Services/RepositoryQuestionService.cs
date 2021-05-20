@@ -35,11 +35,11 @@ namespace Balderdash.Services
 
         public bool IsQuestionComplete => _questionRepository.IsQuestionComplete(GameId);
 
-        public event Action? DasherSet;
-        public event Action? QuestionSet;
-        public event Action? AnswerReceived;
-        public event Action? AnswersConfirmed;
-        public event Action? RoundEnded;
+        public event EventHandler? DasherSet;
+        public event EventHandler? QuestionSet;
+        public event EventHandler? AnswerReceived;
+        public event EventHandler? AnswersConfirmed;
+        public event EventHandler? RoundEnded;
 
         public void ConfirmAnswers()
         {
@@ -76,6 +76,18 @@ namespace Balderdash.Services
             _questionRepository.SubmitAnswer(GameId, answer);
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            UnregisterCallbacks();
+        }
+
         private void RegisterCallbacks()
         {
             _questionRepository.DasherSet += OnDasherSet;
@@ -94,39 +106,34 @@ namespace Balderdash.Services
             _questionRepository.RoundEnded -= OnRoundEnded;
         }
 
-        private void OnDasherSet(string gameId)
+        private void OnDasherSet(object? sender, GameIdEventArgs e)
         {
-            if (gameId == GameId)
-                DasherSet?.Invoke();
+            if (string.Equals(e.GameId, GameId, StringComparison.Ordinal))
+                DasherSet?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnQuestionSet(string gameId)
+        private void OnQuestionSet(object? sender, GameIdEventArgs e)
         {
-            if (gameId == GameId)
-                QuestionSet?.Invoke();
+            if (string.Equals(e.GameId, GameId, StringComparison.Ordinal))
+                QuestionSet?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnAnswerReceived(string gameId)
+        private void OnAnswerReceived(object? sender, GameIdEventArgs e)
         {
-            if (gameId == GameId)
-                AnswerReceived?.Invoke();
+            if (string.Equals(e.GameId, GameId, StringComparison.Ordinal))
+                AnswerReceived?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnAnswersConfirmed(string gameId)
+        private void OnAnswersConfirmed(object? sender, GameIdEventArgs e)
         {
-            if (gameId == GameId)
-                AnswersConfirmed?.Invoke();
+            if (string.Equals(e.GameId, GameId, StringComparison.Ordinal))
+                AnswersConfirmed?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnRoundEnded(string gameId)
+        private void OnRoundEnded(object? sender, GameIdEventArgs e)
         {
-            if (gameId == GameId)
-                RoundEnded?.Invoke();
-        }
-
-        void IDisposable.Dispose()
-        {
-            UnregisterCallbacks();
+            if (string.Equals(e.GameId, GameId, StringComparison.Ordinal))
+                RoundEnded?.Invoke(this, EventArgs.Empty);
         }
     }
 }

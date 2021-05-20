@@ -15,7 +15,7 @@ namespace Balderdash.Repositories
         public virtual Question? Question => _previousState.Question;
         public virtual IEnumerable<Answer> Answers => _previousState.Answers;
 
-        public GameStateDecorator(IGameState previousState)
+        protected GameStateDecorator(IGameState previousState)
         {
             _previousState = previousState;
         }

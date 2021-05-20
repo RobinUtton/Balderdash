@@ -20,6 +20,6 @@
         /// <summary>
         /// Gets or sets a value indicating whether the answer is the correct answer submitted by the dasher.
         /// </summary>
-        public bool IsCorrect { get; set; } = false;
+        public bool IsCorrect { get; set; }
     }
 }

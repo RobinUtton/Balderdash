@@ -1,4 +1,4 @@
-﻿@page "/EditAnswer/{Id}"
+﻿@page "/EditAnswer/{Id:int}"
 
 <h3>@Answer.Player.Name's answer:</h3>
 
@@ -11,6 +11,6 @@
     <button class="btn btn-secondary" @onclick="RevertAnswer">Revert</button>
     @if (!Answer.IsCorrect)
     {
-        <button class="btn btn-success edit-btn" @onclick="MarkCorrect">Mark correct</button>
+        <button class="btn btn-success" @onclick="MarkCorrect">Mark correct</button>
     }
 </EditForm>

@@ -1,5 +1,5 @@
-﻿using Balderdash.Services;
-using Balderdash.Models;
+﻿using Balderdash.Models;
+using Balderdash.Services;
 using Microsoft.AspNetCore.Components;
 using System.Linq;
 
@@ -10,14 +10,13 @@ namespace Balderdash.Pages
         [Inject] private INavigationService NavigationService { get; set; } = INavigationService.Null;
         [Inject] private IQuestionService QuestionService { get; set; } = IQuestionService.Null;
 
-        [Parameter] public string Id { get; set; } = string.Empty;
-        private int QuestionId => int.Parse(Id);
+        [Parameter] public int Id { get; set; } = 0;
 
         private Answer Answer { get; set; } = new Answer();
 
         protected override void OnInitialized()
         {
-            Answer = QuestionService.Answers.ElementAt(QuestionId);
+            Answer = QuestionService.Answers.ElementAt(Id);
         }
 
         private void UpdateAnswer()

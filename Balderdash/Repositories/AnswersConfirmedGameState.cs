@@ -11,7 +11,7 @@ namespace Balderdash.Repositories
 
         public AnswersConfirmedGameState(IGameState previousState) : base(previousState)
         {
-            Answers = previousState.Answers.Shuffle().ToList();
+            Answers = previousState?.Answers.Shuffle().ToList() ?? Enumerable.Empty<Answer>();
         }
     }
 }

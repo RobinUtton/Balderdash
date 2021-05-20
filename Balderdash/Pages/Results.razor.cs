@@ -8,7 +8,7 @@ namespace Balderdash.Pages
         [Inject] private IQuestionService QuestionService { get; set; } = IQuestionService.Null;
         [Inject] private IPlayerService PlayerService { get; set; } = IPlayerService.Null;
 
-        private bool HighlightOwnAnswer { get; set; } = false;
+        private bool HighlightOwnAnswer { get; set; }
         private string HighlightText => HighlightOwnAnswer ? "Disguise" : "Highlight";
 
         private void ReturnToStart()

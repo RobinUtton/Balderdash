@@ -8,63 +8,63 @@ namespace Balderdash.Repositories
     {
         private readonly Dictionary<string, IGameState> _gameStates = new Dictionary<string, IGameState>();
 
-        public bool IsDasherSet(string gameID) => GetGameState(gameID).IsDasherSet;
-        public bool IsQuestionSet(string gameID) => GetGameState(gameID).IsQuestionSet;
-        public bool IsQuestionComplete(string gameID) => GetGameState(gameID).IsQuestionComplete;
+        public bool IsDasherSet(string gameId) => GetGameState(gameId).IsDasherSet;
+        public bool IsQuestionSet(string gameId) => GetGameState(gameId).IsQuestionSet;
+        public bool IsQuestionComplete(string gameId) => GetGameState(gameId).IsQuestionComplete;
 
-        public Player? GetDasher(string gameID) => GetGameState(gameID).Dasher;
-        public Question? GetQuestion(string gameID) => GetGameState(gameID).Question;
-        public IEnumerable<Answer> GetAnswers(string gameID) => GetGameState(gameID).Answers;
+        public Player? GetDasher(string gameId) => GetGameState(gameId).Dasher;
+        public Question? GetQuestion(string gameId) => GetGameState(gameId).Question;
+        public IEnumerable<Answer> GetAnswers(string gameId) => GetGameState(gameId).Answers;
 
-        public void SetDasher(string gameID, Player dasher)
+        public void SetDasher(string gameId, Player dasher)
         {
-            UpdateGameState(gameID, gs => new DasherSetGameState(dasher, gs));
+            UpdateGameState(gameId, gs => new DasherSetGameState(dasher, gs));
 
-            DasherSet?.Invoke(gameID);
+            DasherSet?.Invoke(this, new GameIdEventArgs(gameId));
         }
-        public void SetQuestion(string gameID, Question question)
+        public void SetQuestion(string gameId, Question question)
         {
-            UpdateGameState(gameID, gs => new QuestionSetGameState(question, gs));
+            UpdateGameState(gameId, gs => new QuestionSetGameState(question, gs));
 
-            QuestionSet?.Invoke(gameID);
+            QuestionSet?.Invoke(this, new GameIdEventArgs(gameId));
         }
-        public void SubmitAnswer(string gameID, Answer answer)
+        public void SubmitAnswer(string gameId, Answer answer)
         {
-            UpdateGameState(gameID, gs => new AnswerSubmittedGameState(answer, gs));
+            UpdateGameState(gameId, gs => new AnswerSubmittedGameState(answer, gs));
 
-            AnswerReceived?.Invoke(gameID);
+            AnswerReceived?.Invoke(this, new GameIdEventArgs(gameId));
         }
-        public void RemoveAnswer(string gameID, Answer answer)
+        public void RemoveAnswer(string gameId, Answer answer)
         {
-            UpdateGameState(gameID, gs => new AnswerRemovedGameState(answer, gs));
+            UpdateGameState(gameId, gs => new AnswerRemovedGameState(answer, gs));
         }
-        public void ConfirmAnswers(string gameID)
+        public void ConfirmAnswers(string gameId)
         {
-            UpdateGameState(gameID, gs => new AnswersConfirmedGameState(gs));
+            UpdateGameState(gameId, gs => new AnswersConfirmedGameState(gs));
 
-            AnswersConfirmed?.Invoke(gameID);
+            AnswersConfirmed?.Invoke(this, new GameIdEventArgs(gameId));
         }
-        public void EndRound(string gameID)
+        public void EndRound(string gameId)
         {
-            DeleteGameState(gameID);
+            DeleteGameState(gameId);
 
-            RoundEnded?.Invoke(gameID);
-        }
-
-        private IGameState GetGameState(string gameID) => _gameStates.ContainsKey(gameID) ? _gameStates[gameID] : new NewRoundGameState();
-        private void UpdateGameState(string gameID, Func<IGameState, IGameState> change)
-        {
-            _gameStates[gameID] = change(GetGameState(gameID));
-        }
-        private void DeleteGameState(string gameID)
-        {
-            _gameStates.Remove(gameID);
+            RoundEnded?.Invoke(this, new GameIdEventArgs(gameId));
         }
 
-        public event Action<string>? DasherSet;
-        public event Action<string>? QuestionSet;
-        public event Action<string>? AnswerReceived;
-        public event Action<string>? AnswersConfirmed;
-        public event Action<string>? RoundEnded;
+        private IGameState GetGameState(string gameId) => _gameStates.ContainsKey(gameId) ? _gameStates[gameId] : new NewRoundGameState();
+        private void UpdateGameState(string gameId, Func<IGameState, IGameState> change)
+        {
+            _gameStates[gameId] = change(GetGameState(gameId));
+        }
+        private void DeleteGameState(string gameId)
+        {
+            _gameStates.Remove(gameId);
+        }
+
+        public event EventHandler<GameIdEventArgs>? DasherSet;
+        public event EventHandler<GameIdEventArgs>? QuestionSet;
+        public event EventHandler<GameIdEventArgs>? AnswerReceived;
+        public event EventHandler<GameIdEventArgs>? AnswersConfirmed;
+        public event EventHandler<GameIdEventArgs>? RoundEnded;
     }
 }

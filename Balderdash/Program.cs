@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System;
 
+[assembly: CLSCompliant(false)]
 namespace Balderdash
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {

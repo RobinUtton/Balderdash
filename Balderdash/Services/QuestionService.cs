@@ -23,11 +23,11 @@ namespace Balderdash.Services
         public bool IsQuestionSet => !(_question is null);
         public bool IsQuestionComplete => Options.Any();
 
-        public event Action? DasherSet;
-        public event Action? QuestionSet;
-        public event Action? AnswerReceived;
-        public event Action? AnswersConfirmed;
-        public event Action? RoundEnded;
+        public event EventHandler? DasherSet;
+        public event EventHandler? QuestionSet;
+        public event EventHandler? AnswerReceived;
+        public event EventHandler? AnswersConfirmed;
+        public event EventHandler? RoundEnded;
 
         public bool IsPlayerDasher(Player player) => player == _dasher;
 
@@ -35,21 +35,21 @@ namespace Balderdash.Services
         {
             _dasher = player;
 
-            DasherSet?.Invoke();
+            DasherSet?.Invoke(this, EventArgs.Empty);
         }
 
         public void SetQuestion(Question question)
         {
             _question = question;
 
-            QuestionSet?.Invoke();
+            QuestionSet?.Invoke(this, EventArgs.Empty);
         }
 
         public void SubmitAnswer(Answer answer)
         {
             _answers.Add(answer);
 
-            AnswerReceived?.Invoke();
+            AnswerReceived?.Invoke(this, EventArgs.Empty);
         }
 
         public void RemoveAnswer(Answer answer)
@@ -63,7 +63,7 @@ namespace Balderdash.Services
                 .Shuffle()
                 .ToList();
 
-            AnswersConfirmed?.Invoke();
+            AnswersConfirmed?.Invoke(this, EventArgs.Empty);
         }
 
         public void EndRound()
@@ -73,7 +73,7 @@ namespace Balderdash.Services
             _answers.Clear();
             Options = Enumerable.Empty<Answer>();
 
-            RoundEnded?.Invoke();
+            RoundEnded?.Invoke(this, EventArgs.Empty);
         }
     }
 }

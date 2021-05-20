@@ -6,25 +6,25 @@ namespace Balderdash.Repositories
 {
     public interface IQuestionRepository
     {
-        bool IsDasherSet(string gameID);
-        bool IsQuestionSet(string gameID);
-        bool IsQuestionComplete(string gameID);
+        bool IsDasherSet(string gameId);
+        bool IsQuestionSet(string gameId);
+        bool IsQuestionComplete(string gameId);
 
-        Player? GetDasher(string gameID);
-        Question? GetQuestion(string gameID);
-        IEnumerable<Answer> GetAnswers(string gameID);
+        Player? GetDasher(string gameId);
+        Question? GetQuestion(string gameId);
+        IEnumerable<Answer> GetAnswers(string gameId);
 
-        void SetDasher(string gameID, Player dasher);
-        void SetQuestion(string gameID, Question question);
-        void SubmitAnswer(string gameID, Answer answer);
-        void RemoveAnswer(string gameID, Answer answer);
-        void ConfirmAnswers(string gameID);
-        void EndRound(string gameID);
+        void SetDasher(string gameId, Player dasher);
+        void SetQuestion(string gameId, Question question);
+        void SubmitAnswer(string gameId, Answer answer);
+        void RemoveAnswer(string gameId, Answer answer);
+        void ConfirmAnswers(string gameId);
+        void EndRound(string gameId);
 
-        public event Action<string>? DasherSet;
-        public event Action<string>? QuestionSet;
-        public event Action<string>? AnswerReceived;
-        public event Action<string>? AnswersConfirmed;
-        public event Action<string>? RoundEnded;
+        public event EventHandler<GameIdEventArgs>? DasherSet;
+        public event EventHandler<GameIdEventArgs>? QuestionSet;
+        public event EventHandler<GameIdEventArgs>? AnswerReceived;
+        public event EventHandler<GameIdEventArgs>? AnswersConfirmed;
+        public event EventHandler<GameIdEventArgs>? RoundEnded;
     }
 }
